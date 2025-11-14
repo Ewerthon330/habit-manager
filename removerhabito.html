@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remover Hábito</title>
+    <link rel="stylesheet" href="style/removerhabito.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Remover Hábito</h1>
+
+        <div class="box">
+            <p>Selecione os hábitos que deseja remover:</p>
+
+            <div class="grid">
+                <button class="habit">Drink Water</button>
+                <button class="habit selected">Meditate</button>
+
+                <button class="habit">Study</button>
+                <button class="habit">Train</button>
+
+                <button class="habit">Read</button>
+                <button class="habit">Work</button>
+            </div>
+        </div>
+
+        <button class="btn remove">Remover Hábito</button>
+        <button class="btn voltar">Voltar</button>
+    </div>
+
+    <script>
+        // Selecionar botões
+        document.querySelectorAll(".habit").forEach(btn => {
+            btn.addEventListener("click", () => {
+                btn.classList.toggle("selected");
+            });
+        });
+    </script>
+</body>
+</html>
