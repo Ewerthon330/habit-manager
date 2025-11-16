@@ -11,7 +11,7 @@ html, body {
 
 /* ===== IMAGEM DE FUNDO ===== */
 body {
-  background: url('../img/trabalho1.jpg') no-repeat center center fixed;
+  background: url('../assets/img/trabalho1.jpg') no-repeat center center fixed;
   background-size: cover; /* ocupa toda a tela */
 }
 

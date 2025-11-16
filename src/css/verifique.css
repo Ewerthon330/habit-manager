@@ -23,7 +23,7 @@ html, body {
   flex: 1;
   position: relative;
   background: linear-gradient(rgba(60, 0, 90, 0.2), rgba(60, 0, 90, 0.2)),
-              url("../img/trabalho1.jpg") center/cover no-repeat;
+              url("../assets/img/trabalho1.jpg") center/cover no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
