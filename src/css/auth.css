@@ -1,0 +1,161 @@
+/* css/auth.css */
+
+/* Container Principal */
+.container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  position: relative; /* Para posicionar o botão voltar */
+}
+
+/* Botão Voltar (Flutuante) */
+.back-btn {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-gray);
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: 100; /* Fica acima de tudo */
+  background: rgba(255, 255, 255, 0.8);
+  padding: 8px 15px;
+  border-radius: 30px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.back-btn:hover {
+  color: var(--primary);
+  transform: translateX(-3px);
+  background: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Lados (Split Screen) */
+.split-screen {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+/* Lado da Imagem (Decorativo) */
+.bg-side {
+  background: linear-gradient(rgba(60, 0, 90, 0.4), rgba(60, 0, 90, 0.4)),
+              url("../assets/img/trabalho1.svg") center/cover no-repeat;
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+/* Lado do Formulário */
+.form-side {
+  background: var(--white);
+}
+
+/* Conteúdo do Texto na Imagem */
+.text-content {
+  max-width: 400px;
+  z-index: 2;
+}
+.tagline { font-size: 2rem; font-weight: 700; margin-bottom: 10px; }
+.subtext { opacity: 0.9; font-size: 1rem; }
+
+/* Card do Formulário */
+.form-box {
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+}
+
+.form-title {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.subtitle { margin-bottom: 25px; color: var(--text-gray); font-size: 0.9rem; }
+
+/* Inputs */
+form { display: flex; flex-direction: column; }
+
+input {
+  background: var(--primary-light); 
+  border: 1px solid #e0e0e0; 
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 15px;
+  outline: none;
+  font-size: 0.95rem;
+  width: 100%; 
+}
+
+input:focus {
+  border-color: var(--primary); /* Borda roxa ao digitar */
+  background: white;
+  box-shadow: 0 4px 15px rgba(147, 51, 234, 0.1);
+}
+
+/* Botão Principal */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 5px;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 8px 20px rgba(147, 51, 234, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Google Btn & Divider (Mantido igual mas limpo) */
+.divider { margin: 20px 0; display: flex; align-items: center; color: #aaa; }
+.divider span { flex: 1; height: 1px; background: #eee; }
+.divider p { margin: 0 10px; font-size: 0.8rem; }
+
+.google-btn {
+  background: white;
+  border: 1px solid #ddd;
+  padding: 12px 25px; 
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #555;
+  margin: 0 auto; 
+  width: fit-content; 
+  min-width: 250px;  
+}
+.google-btn:hover {
+  background: #f9f9f9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.google-btn img { width: 20px; }
+
+/* Links de rodapé */
+.bottom-text { margin-top: 20px; font-size: 0.9rem; }
+.bottom-text a { color: var(--primary); font-weight: 600; }
+.bottom-text a:hover { text-decoration: underline; }
+
+/* Responsividade */
+@media (max-width: 850px) {
+  .container { flex-direction: column; }
+  .bg-side { display: none; } /* Oculta imagem no mobile para focar no form */
+  .form-side { padding: 20px; }
+  .back-btn { top: 15px; left: 15px; background: #f5f5f5; }
+}
