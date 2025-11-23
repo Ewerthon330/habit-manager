@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Hábitos - Home</title>
+    <link rel="stylesheet" href="../css/home.css"> 
+</head>
+<body>
+    <div class="app-container">
+        <div class="main-content">
+            <header class="header">
+                <h1>Hello, **Ewerthon**</h1>
+                <p id="time-to-bedtime">Bem-vindo(a) ao seu Gerenciador!</p>
+            </header>
+
+            <nav class="time-nav">
+                <button class="nav-button active">Semana</button>
+                <button class="nav-button">Mês</button>
+                <button class="nav-button">Ano</button>
+                
+                <button class="add-habit-button" onclick="window.location.href='adicionarhabito.html'">+ Adicionar Hábito</button>
+            </nav>
+
+            <div class="week-selector">
+                <div class="date-range">
+                    <button class="arrow-button" id="prev-week">&lt;</button>
+                    <h2 id="current-week-range">Carregando Semana...</h2>
+                    <button class="arrow-button" id="next-week">&gt;</button>
+                </div>
+                <div class="menu-icons">
+                    <button class="icon-button">...</button>
+                    <button class="icon-button">:::</button>
+                </div>
+            </div>
+
+            <div class="achievement-summary">
+                <p id="weekly-change">N/A</p>
+                <p id="weekly-achieved">0% alcançado</p>
+            </div>
+
+            <div class="habit-grid">
+                <div class="grid-header"></div>
+                <div class="grid-header">Seg</div>
+                <div class="grid-header">Ter</div>
+                <div class="grid-header">Qua</div>
+                <div class="grid-header">Qui</div>
+                <div class="grid-header">Sex</div>
+                <div class="grid-header">Sáb</div>
+                <div class="grid-header">Dom</div>
+                <div class="grid-header stats-column"></div>
+                
+                <div id="habit-rows">
+                    </div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="date-header">
+                <p id="today-date">Carregando Data...</p>
+                <div class="nav-arrows">
+                    <button class="arrow-small">&lt;</button>
+                    <button class="arrow-small">&gt;</button>
+                </div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="daily-progress-fill"></div>
+                </div>
+                <p id="daily-progress-text">0% do objetivo diário alcançado</p>
+            </div>
+            
+            <div class="daily-goals-list" id="daily-goals-list">
+                <p class="placeholder">Nenhum hábito para hoje. Adicione um!</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/home.js"></script>
+</body>
+</html>

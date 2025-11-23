@@ -1,0 +1,246 @@
+:root {
+    /* Cores principais */
+    --color-background: #F4F6F9; /* Mantido, mas o BODY não o usará */
+    --color-surface: #FFFFFF;
+    --color-text-primary: #1C274C;
+    --color-text-secondary: #6B778C;
+    --color-progress-bar: #3498DB;
+    --color-border: #E0E0E0;
+    --color-undo: #A9A9A9;
+    --color-mark-complete: #F2F2F2;
+    /* Novas cores do gradiente para fácil ajuste futuro, se quiser */
+    --color-gradient-start: #8a02c5;
+    --color-gradient-mid: #b700ff;
+    --color-gradient-end: #e8c8ff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* 🛑 CORREÇÃO APLICADA AQUI: GRADIENTE PARA HOME.HTML 🛑 */
+body {
+    min-height: 100vh; /* Garantir que o gradiente preencha a tela */
+    display: flex;
+    align-items: center; /* Centraliza o conteúdo (o .app-container) verticalmente */
+    justify-content: center; /* Centraliza o conteúdo (o .app-container) horizontalmente */
+    padding: 24px;
+    background: linear-gradient(135deg, var(--color-gradient-start) 0%, var(--color-gradient-mid) 40%, var(--color-gradient-end) 100%);
+    position: relative;
+    background-attachment: fixed; 
+    
+    /* Outros estilos que você já tinha: */
+    color: var(--color-text-primary);
+}
+/* Fim da Correção */
+
+
+.app-container {
+    /* O app-container é o que estava centralizado no meio do gradiente */
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--color-surface); /* O conteúdo principal continua branco */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    /* Garantir que ele não seja esmagado, mas sim que ocupe o máximo */
+    width: 100%; 
+}
+
+.main-content {
+    flex: 2;
+    padding: 30px;
+    border-right: 1px solid var(--color-border);
+}
+
+.header h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 5px; }
+.header p { font-size: 0.9rem; color: var(--color-text-secondary); margin-bottom: 25px; }
+
+.time-nav { display: flex; gap: 10px; margin-bottom: 30px; }
+.nav-button { background-color: transparent; border: none; padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: 600; color: var(--color-text-secondary); cursor: pointer; transition: background-color 0.2s; }
+.nav-button.active { background-color: var(--color-text-primary); color: var(--color-surface); }
+.add-habit-button { 
+    margin-left: auto; 
+    background-color: #F0F0F0; 
+    color: var(--color-text-primary); 
+    border: none; 
+    padding: 8px 15px; 
+    border-radius: 20px; 
+    font-size: 0.9rem; 
+    font-weight: 600; 
+    cursor: pointer; 
+}
+.week-selector { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.date-range { display: flex; align-items: center; gap: 10px; }
+.date-range h2 { font-size: 1.2rem; font-weight: 600; }
+.arrow-button { background: none; border: 1px solid var(--color-border); border-radius: 50%; width: 28px; height: 28px; font-size: 1rem; color: var(--color-text-secondary); cursor: pointer; }
+.icon-button { background: none; border: none; font-size: 1.2rem; margin-left: 10px; color: var(--color-text-secondary); cursor: pointer; }
+.achievement-summary { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 20px; }
+
+/* Habit Grid */
+.habit-grid {
+    display: grid;
+    grid-template-columns: 1fr repeat(7, 40px) 60px; 
+    gap: 10px;
+    text-align: center;
+    align-items: center;
+    font-size: 0.9rem;
+}
+.grid-header {
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.grid-header:first-child { justify-content: flex-start; }
+#habit-rows { display: contents; } 
+
+.habit-name {
+    font-weight: 500;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.grid-cell {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    background-color: #F0F0F0;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all 0.1s;
+}
+
+.grid-cell.checked {
+    background-color: var(--color-surface); 
+    border: 3px solid var(--habit-color); 
+    box-shadow: 0 0 0 1px var(--color-border) inset;
+    opacity: 1;
+}
+.stats-column {
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    text-align: right;
+    padding-right: 5px;
+}
+
+/* Sidebar */
+.sidebar {
+    flex: 1;
+    min-width: 300px;
+    padding: 30px;
+    background-color: var(--color-surface);
+}
+.date-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.date-header p { font-size: 1.1rem; font-weight: 600; }
+.nav-arrows .arrow-small { background: none; border: none; color: var(--color-text-secondary); font-size: 1rem; cursor: pointer; margin-left: 5px; }
+.progress-bar-container { padding-bottom: 20px; border-bottom: 1px solid var(--color-border); margin-bottom: 20px; }
+.progress-bar { height: 5px; background-color: var(--color-border); border-radius: 2.5px; margin-bottom: 10px; position: relative; overflow: hidden; }
+.progress-fill {
+    height: 100%;
+    width: 0%; 
+    background-color: var(--color-progress-bar);
+    border-radius: 2.5px;
+    transition: width 0.3s ease-out;
+}
+.progress-bar-container p { font-size: 0.85rem; color: var(--color-text-secondary); text-align: right; }
+.daily-goals-list { display: flex; flex-direction: column; gap: 10px; }
+.placeholder { font-style: italic; color: var(--color-text-secondary); text-align: center; margin-top: 20px; }
+
+/* Goal Item e Menu de Ações */
+.goal-item {
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    border: 1px solid var(--color-border);
+    transition: all 0.2s;
+}
+
+/* Garante a remoção de ícones duplicados */
+.goal-item::after { 
+    content: none; 
+}
+
+/* Menu de Ações */
+.habit-actions-menu {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+.menu-dots {
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    line-height: 1; 
+    color: var(--color-text-secondary);
+    padding: 0 5px;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none; 
+    position: absolute;
+    right: 0;
+    top: 100%; 
+    background-color: var(--color-surface);
+    min-width: 130px; 
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 100;
+    border-radius: 6px;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    transform: translate(0px, 5px); 
+}
+
+.dropdown-content.open {
+    display: block; 
+}
+
+.dropdown-content a {
+    color: var(--color-text-primary);
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--color-mark-complete);
+}
+
+/* Estilos para o estado de concluído */
+.goal-item h3 { font-size: 1rem; font-weight: 600; margin: 0; color: var(--habit-color); }
+
+.goal-item.completed {
+    background-color: var(--habit-color); 
+    color: var(--color-surface);
+    border-color: var(--habit-color);
+}
+.goal-item.completed h3 { color: var(--color-surface); }
+.goal-item.completed .menu-dots { color: var(--color-surface); }
+.goal-item.completed .undo-button { color: rgba(0, 0, 0, 0.7); } 
+
+.goal-buttons { display: flex; gap: 10px; align-items: center; }
+.status { font-weight: 600; font-size: 0.8rem; }
+.undo-button {
+    background: none; border: none; 
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.8rem; font-weight: 600; cursor: pointer; text-decoration: underline; padding: 0;
+}
+.mark-complete-button {
+    background-color: var(--color-mark-complete);
+    color: var(--color-text-primary);
+    border: none; padding: 8px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; cursor: pointer; align-self: flex-start;
+}
+strong { font-weight: 800; }
