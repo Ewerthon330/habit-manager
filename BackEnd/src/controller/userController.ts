@@ -1,0 +1,83 @@
+import { Request, Response } from "express";
+import userModels from "../models/userModels";
+import { hashPassword } from "../services/passwordServices";
+import type { IUser } from "../interfaces/interfaces";
+import bcrypt from "bcrypt";
+import { config } from "dotenv";
+config();
+const saltRounds = Number(process.env.SALTROUNDS) || 10;
+// Criar novo usuário (com senha hasheada corretamente)
+
+
+const createNewUser = async (req: Request, res: Response) => {
+  try {
+    const { name, email, password, role } = req.body;
+
+    
+    console.log('controller aqui', req.body.name)
+
+    if (!name) {
+      return res
+        .status(400)
+        .json({ message: "Nome, email, senha e role são obrigatórios." });
+    }
+
+    console.log(req.body)
+
+    if (!password) {
+      throw new Error("Password is required");
+    }
+
+    const hashPassword = await bcrypt.hash(req.body.password, saltRounds);
+    console.log(hashPassword);
+
+    let dados = {
+      name,
+      email,
+      hashPassword,
+      role,
+    };
+
+    const created = await userModels.createNewUser(dados);
+
+    return res.status(201).json({
+      message: "Usuário criado com sucesso!",
+      user: created,
+    });
+  } catch (error) {
+    console.error("Erro ao criar usuário:", error);
+    return res.status(500).json({ message: "Erro interno no servidor." });
+  }
+};
+
+// Buscar todos usuários
+const getUserAll = async (req: Request, res: Response) => {
+  try {
+    const users = await userModels.getUserAll();
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(500).json({ message: "Erro interno no servidor." });
+  }
+};
+
+// Remover usuário
+const removeUser = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  if (!id) {
+    return res.status(400).json({ message: "ID é obrigatório." });
+  }
+
+  try {
+    await userModels.removeUser(id);
+    return res.status(200).json({ message: "Usuário removido com sucesso." });
+  } catch (error) {
+    return res.status(500).json({ message: "Erro interno no servidor." });
+  }
+};
+
+export default {
+  createNewUser,
+  getUserAll,
+  removeUser,
+};
