@@ -1,7 +1,7 @@
 // firebase/habits.ts
 import { db, auth } from '../firebase/config';
 import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc, query, orderBy, Timestamp } from "firebase/firestore";
-import { Habit } from "../interfaces/interfaces";
+import { IHabit } from "../interfaces/interfaces";
 
 // Adicionar hábito
 export const addHabit = async (title: string, frequency: string): Promise<void> => {
@@ -19,7 +19,7 @@ export const addHabit = async (title: string, frequency: string): Promise<void> 
 };
 
 // Listar hábitos
-export const getHabits = async (): Promise<Habit[]> => {
+export const getHabits = async (): Promise<IHabit[]> => {
   const user = auth.currentUser;
   if (!user) throw new Error("Usuário não está logado");
 

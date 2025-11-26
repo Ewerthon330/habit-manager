@@ -13,36 +13,25 @@ const createNewUser = async (req: Request, res: Response) => {
   try {
     const { name, email, password, role } = req.body;
 
-    
-    console.log('controller aqui', req.body.name)
-
-    if (!name) {
-      return res
-        .status(400)
-        .json({ message: "Nome, email, senha e role são obrigatórios." });
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "Nome, email e senha são obrigatórios." });
     }
 
-    console.log(req.body)
+    const normalizedEmail = String(email).trim().toLowerCase();
+    const hashedPassword = await bcrypt.hash(String(password), saltRounds);
 
-    if (!password) {
-      throw new Error("Password is required");
-    }
-
-    const hashPassword = await bcrypt.hash(req.body.password, saltRounds);
-    console.log(hashPassword);
-
-    let dados = {
+    const dados = {
       name,
-      email,
-      hashPassword,
-      role,
+      email: normalizedEmail,
+      password: hashedPassword, // <-- important: field must be "password"
+      role: role ?? "user",
     };
 
     const created = await userModels.createNewUser(dados);
 
     return res.status(201).json({
       message: "Usuário criado com sucesso!",
-      user: created,
+      user: { id: created.id ?? created._id, name: created.name, email: created.email, role: created.role },
     });
   } catch (error) {
     console.error("Erro ao criar usuário:", error);

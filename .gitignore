@@ -38,7 +38,7 @@ Thumbs.db
 
 # TypeScript cache
 *.tsbuildinfo
-
+*.json
 # Temporary files
 tmp/
 temp/

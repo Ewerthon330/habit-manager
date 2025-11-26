@@ -11,36 +11,33 @@ interface IData {
 }
 
 const loginUser = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
 
-  if (!email || !password) {
+  console.log("DADOS RECEBIDOS NO LOGIN:", req.body);
+  const rawEmail = req.body?.email;
+  const rawPassword = req.body?.password;
+
+  if (!rawEmail || !rawPassword) {
     return res.status(400).json({ message: "Email e senha são obrigatórios." });
   }
 
   try {
-    const user = await userModels.findByEmail(email) as IUser | null;
+    // normalize input (minimally) to avoid case-sensitivity issues
+    const email = String(rawEmail).trim().toLowerCase();
+    const password = String(rawPassword);
 
-    // logo após obter o usuário
-    console.log(">> login: email recebido:", email);
-    console.log(">> login: user encontrado (raw):", user);
+    const user = (await userModels.findByEmail(email)) as IUser | null;
 
+    // Se não encontrou usuário ou usuário não tem senha -> credenciais inválidas
+    if (!user || !user.password) {
 
-    if (!user) {
+      console.log("LOGIN FALHOU: Credenciais inválidas");
+
       return res.status(401).json({ message: "Credenciais inválidas." });
-    }
-
-    if (!user.password) {
-      // usuário sem senha armazenada — trate conforme sua regra (por exemplo, login só via OAuth)
-      console.error("Usuário sem password cadastrado:", user.id);
-      return res.status(500).json({ message: "Erro interno no servidor." });
     }
 
     const validatePassword = await comparePassword(password, user.password);
 
-    console.log(">> login: senha enviada:", password);
-    console.log(">> login: hash do usuário:", user?.password);
-    console.log(">> login: resultado comparePassword:", validatePassword);
-
+    // Não logar senha nem hash em produção -- removidos logs sensíveis
     if (!validatePassword) {
       return res.status(401).json({ message: "Credenciais inválidas." });
     }
@@ -56,7 +53,7 @@ const loginUser = async (req: Request, res: Response) => {
     return res.status(200).json({ token });
   } catch (error) {
     console.error("Erro no login:", error);
-    return res.status(500).json({ message: "Erro interno no servidor" });
+    return res.status(500).json({ message: "Erro interno no servidor." });
   }
 };
 
