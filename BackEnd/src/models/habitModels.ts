@@ -1,4 +1,11 @@
-import { dbAdmin as db } from "../firebase/config";
+import { db } from "../firebase/config";
+import {
+  collection,
+  doc,
+  addDoc,
+  getDocs,
+  deleteDoc,
+} from "firebase/firestore";
 
 export interface IHabit {
   id?: string;
@@ -6,27 +13,20 @@ export interface IHabit {
   createdAt: number;
 }
 
-// Adicionar novo hábito dentro da subcoleção habits do usuário
+// Adicionar novo hábito
 export const addHabit = async (userId: string, habit: IHabit) => {
-  const ref = db
-    .collection("users")
-    .doc(userId)
-    .collection("habits");
+  const ref = collection(db, "users", userId, "habits");
 
-  await ref.add({
+  await addDoc(ref, {
     name: habit.name,
     createdAt: Date.now(),
   });
 };
 
-// Buscar todos os hábitos do usuário
+// Buscar hábitos do usuário
 export const getHabits = async (userId: string) => {
-  const ref = db
-    .collection("users")
-    .doc(userId)
-    .collection("habits");
-
-  const snapshot = await ref.get();
+  const ref = collection(db, "users", userId, "habits");
+  const snapshot = await getDocs(ref);
 
   return snapshot.docs.map((docSnap) => ({
     id: docSnap.id,
@@ -34,15 +34,10 @@ export const getHabits = async (userId: string) => {
   })) as IHabit[];
 };
 
-// Remover um hábito específico
+// Remover hábito
 export const deleteHabit = async (userId: string, habitId: string) => {
-  const ref = db
-    .collection("users")
-    .doc(userId)
-    .collection("habits")
-    .doc(habitId);
-
-  await ref.delete();
+  const ref = doc(db, "users", userId, "habits", habitId);
+  await deleteDoc(ref);
 };
 
 export default {

@@ -20,11 +20,13 @@
     </a>
 
     <div class="split-screen form-side">
-      <div class="form-box animate-up"> <h2 class="form-title">Bem-vindo de volta!</h2>
+      <div class="form-box animate-up">
+        <h2 class="form-title">Bem-vindo de volta!</h2>
         <p class="subtitle">Continue sua jornada saudável.</p>
 
-        <form action="home.html"> <input type="email" placeholder="Seu e-mail" required>
-          <input type="password" placeholder="Sua senha" required>
+        <form id="sign">
+          <input id="loginEmail" type="email" placeholder="Seu e-mail" required>
+          <input id="loginPassword" type="password" placeholder="Sua senha" required>
           
           <button id="btnLogin" type="submit" class="btn-primary">Entrar</button>
         </form>
@@ -33,8 +35,9 @@
           <span></span><p>OU</p><span></span>
         </div>
 
-        <button class="google-btn">
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
+        <!-- Mudei para usar addEventListener no script -->
+        <button class="google-btn" id="googleLoginBtn">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
           Entrar com Google
         </button>
 
@@ -51,6 +54,60 @@
       </div>
     </div>
   </div>
-  <script src="../js//login.js" defer></script>
+
+  <!-- Script principal -->
+  <script type="module">
+    // Importa do firebase.js
+    import { auth, provider } from '../js/firebase.js';
+    import { signInWithPopup } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+    // Função de login
+    async function signInWithGoogle() {
+      try {
+        console.log("🎯 Iniciando login Google...");
+        
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        
+        console.log("✅ Usuário logado com sucesso:", user);
+        
+        // Salva no sessionStorage e redireciona
+        sessionStorage.setItem('user', JSON.stringify({
+          uid: user.uid,
+          email: user.email,
+          name: user.displayName,
+          photoURL: user.photoURL
+        }));
+        
+        window.location.href = 'home.html';
+        
+      } catch (error) {
+        console.error("❌ Erro no login Google:", error);
+        
+        if (error.code === 'auth/popup-closed-by-user') {
+          console.log('Usuário fechou o popup');
+        } else if (error.code === 'auth/network-request-failed') {
+          alert('Erro de conexão. Verifique sua internet.');
+        } else {
+          alert('Erro ao fazer login com Google: ' + error.message);
+        }
+      }
+    }
+
+    // Adiciona event listener quando o DOM carregar
+    document.addEventListener('DOMContentLoaded', function() {
+      const googleBtn = document.getElementById('googleLoginBtn');
+      if (googleBtn) {
+        googleBtn.addEventListener('click', signInWithGoogle);
+        console.log("✅ Botão Google configurado");
+      } else {
+        console.error("❌ Botão Google não encontrado");
+      }
+    });
+
+    console.log("✅ Firebase configurado e pronto!");
+  </script>
+
+  <script src="../js/login.js" defer></script>
 </body>
 </html>

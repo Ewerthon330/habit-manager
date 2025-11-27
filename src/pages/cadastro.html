@@ -9,9 +9,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="../assets/icons/icon.png" type="image/png">
-
-  <!-- script com defer para carregar após o HTML -->
-  <script src="../js/cadastro.js" defer></script>
 </head>
 <body>
 
@@ -33,7 +30,6 @@
         <h2 class="form-title">Crie sua conta</h2>
         <p class="subtitle">Preencha seus dados para começar.</p>
 
-        <!-- adicionei id no form e removi action que fazia redirect -->
         <form id="formCadastro" action="#">
           <input id="cadName" name="name" type="text" placeholder="Nome completo" required>
           <input id="cadEmail" name="email" type="email" placeholder="Melhor e-mail" required>
@@ -46,7 +42,7 @@
           <span></span><p>OU</p><span></span>
         </div>
 
-        <button class="google-btn" type="button">
+        <button id="btnGoogle" class="google-btn" type="button">
           <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
           Cadastrar com Google
         </button>
@@ -59,5 +55,86 @@
 
   </div>
 
+  <!-- Script do Firebase para cadastro com Google -->
+  <script type="module">
+    import { auth, provider } from '../js/firebase.js';
+    import { signInWithPopup } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+    // Função de Cadastro com Google
+    async function signUpWithGoogle() {
+      try {
+        console.log("🎯 Iniciando cadastro com Google...");
+        
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        
+        console.log("✅ Usuário cadastrado com Google:", user);
+        
+        // Envia dados para seu backend (igual ao cadastro normal)
+        const response = await fetch('http://localhost:3000/api/auth/google-signup', {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: user.displayName,
+            email: user.email,
+            firebaseUid: user.uid,
+            photoURL: user.photoURL,
+            provider: 'google'
+          })
+        });
+
+        // Se backend não disponível, usa redirecionamento direto
+        if (!response || !response.ok) {
+          console.log("⚠️ Backend não disponível, usando sessionStorage...");
+          sessionStorage.setItem('user', JSON.stringify({
+            name: user.displayName,
+            email: user.email,
+            firebaseUid: user.uid,
+            photoURL: user.photoURL,
+            provider: 'google'
+          }));
+          window.location.href = 'home.html';
+          return;
+        }
+
+        const data = await response.json();
+        console.log("📨 Resposta do backend:", data);
+        
+        if (data.success) {
+          sessionStorage.setItem('authToken', data.token);
+          sessionStorage.setItem('user', JSON.stringify(data.user));
+          window.location.href = 'home.html';
+        } else {
+          alert(data.message || 'Erro no cadastro com Google.');
+        }
+        
+      } catch (error) {
+        console.error("❌ Erro no cadastro Google:", error);
+        
+        if (error.code === 'auth/popup-closed-by-user') {
+          console.log('Usuário fechou o popup');
+        } else if (error.code === 'auth/network-request-failed') {
+          alert('Erro de conexão. Verifique sua internet.');
+        } else {
+          alert('Erro ao cadastrar com Google: ' + error.message);
+        }
+      }
+    }
+
+    // Configura o botão Google quando o DOM carregar
+    document.addEventListener('DOMContentLoaded', function() {
+      const googleBtn = document.getElementById('btnGoogle');
+      if (googleBtn) {
+        googleBtn.addEventListener('click', signUpWithGoogle);
+        console.log("✅ Botão Google cadastro configurado");
+      }
+    });
+
+    console.log("✅ Firebase configurado para cadastro");
+  </script>
+
+  <script src="../js/cadastro.js" defer></script>
 </body>
 </html>
