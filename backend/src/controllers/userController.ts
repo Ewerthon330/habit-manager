@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import userModels from "../models/user.model";
+import userModels from "../models/userModel";
 import { hashPassword } from "../services/passwordServices";
 import type { IUser } from "../interfaces/interfaces";
 import bcrypt from "bcrypt";

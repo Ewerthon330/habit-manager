@@ -1,11 +1,11 @@
 import express from 'express'
 import cors from 'cors'
-import { routerUser } from './routes/user.routes'
-import { routerAuth } from './routes/auth.routes'
-import testRoutes from "./routes/test.routes"
-import routerHabit from './routes/habit.routes'
+import { routerUser } from './routes/userRoutes'
+import { routerAuth } from './routes/authRoutes'
+import testRoutes from "./routes/testRoutes"
+import routerHabit from './routes/habitRoutes'
 
-import { routerChat } from './routes/chat.routes'
+import { routerChat } from './routes/chatRoutes'
 
 export const app = express()
 

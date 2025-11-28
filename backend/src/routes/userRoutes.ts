@@ -1,6 +1,6 @@
 import express from 'express'
-import userController from '../controllers/user.controller'
-import userModels from '../models/user.model'
+import userController from '../controllers/userController'
+import userModels from '../models/userModel'
 
 export const routerUser = express.Router()
 

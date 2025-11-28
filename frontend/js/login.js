@@ -1,5 +1,5 @@
 // login.js (ajustado — mantém sua estrutura)
-const API_URL = "http://localhost:3001/api/auth/login"; // corrigido para /api/auth/login
+const API_URL = "http://localhost:3000/api/auth/login";
 
 const emailInput = document.getElementById("loginEmail");
 const passwordInput = document.getElementById("loginPassword");

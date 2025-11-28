@@ -1,5 +1,5 @@
 // register.js
-const API_URL = "http://localhost:3001/api/user"; // ajuste se sua rota for diferente
+const API_URL = "http://localhost:3000/api/user"; // ajuste se sua rota for diferente
 
 // pegar elementos POR ID (devem existir no HTML)
 const nameInput = document.getElementById("cadName");

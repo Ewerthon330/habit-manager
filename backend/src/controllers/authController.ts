@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { auth } from "../config/firebase";
-import userModels from "../models/user.model";
+import userModels from "../models/userModel";
 import jwtServices from "../services/jwtServices";
 import { comparePassword } from "../services/passwordServices";
 import type { IUser } from "../interfaces/interfaces";

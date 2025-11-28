@@ -1,7 +1,7 @@
 // controllers/habitController.ts
 import { Request, Response } from "express";
-import habitModels from "../models/habit.model"; // ajuste o caminho conforme seu projeto
-import { IHabit } from "../models/habit.model"; // caso exporte a interface, senão remova
+import habitModels from "../models/habitModel"; // ajuste o caminho conforme seu projeto
+import { IHabit } from "../models/habitModel"; // caso exporte a interface, senão remova
 
 // Helper para obter userId (tenta várias fontes)
 function getUserIdFromReq(req: Request): string | null {

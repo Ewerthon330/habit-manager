@@ -4,7 +4,7 @@ import {
   listHabits,
   removeHabit,
   toggleCompletion,
-} from "../controllers/habit.controller";
+} from "../controllers/habitController";
 
 const routerHabit = Router();
 
