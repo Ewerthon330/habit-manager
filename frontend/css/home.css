@@ -1,38 +1,25 @@
 :root {
-    /* Mapeamento para variáveis globais (global.css deve ser carregado antes) */
-    --color-background: var(--bg-light);
-    --color-surface: var(--white);
-    --color-text-primary: var(--text-dark);
-    --color-text-secondary: var(--text-gray);
-
-    /* Tema Roxo (Baseado no global.css) */
-    --color-primary: var(--primary);
-    /* #9333ea */
-    --color-primary-dark: var(--primary-dark);
-    /* #6b21a8 */
-    --color-primary-light: var(--primary-light);
-    /* rgba(147, 51, 234, 0.1) */
-
-    --color-progress-bar: var(--primary);
+    /* Cores principais */
+    --color-background: #F4F6F9; 
+    --color-surface: #FFFFFF;
+    --color-text-primary: #1C274C;
+    --color-text-secondary: #6B778C;
+    --color-progress-bar: #3498DB;
     --color-border: #E0E0E0;
     --color-undo: #A9A9A9;
     --color-mark-complete: #F2F2F2;
-
-    /* Gradiente de Fundo (Suave Roxo) */
-    --color-gradient-start: #f3e8ff;
-    /* Roxo muito claro */
-    --color-gradient-mid: #e9d5ff;
-    /* Roxo claro */
-    --color-gradient-end: #d8b4fe;
-    /* Roxo médio */
+    
+    /* Cores do Gradiente para o Fundo */
+    --color-gradient-start: #8a02c5;
+    --color-gradient-mid: #b700ff;
+    --color-gradient-end: #e8c8ff;
 }
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: var(--font-main);
-    /* Poppins */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 /* ------------------------------------- */
@@ -45,9 +32,9 @@ body {
     align-items: center;
     justify-content: center;
     padding: 24px;
-    background: linear-gradient(135deg, var(--color-gradient-start) 0%, var(--color-gradient-mid) 100%);
+    background: linear-gradient(135deg, var(--color-gradient-start) 0%, var(--color-gradient-mid) 40%, var(--color-gradient-end) 100%);
     position: relative;
-    background-attachment: fixed;
+    background-attachment: fixed; 
     color: var(--color-text-primary);
 }
 
@@ -55,14 +42,11 @@ body {
     display: flex;
     max-width: 1200px;
     margin: 0 auto;
-    background-color: var(--color-surface);
-    border-radius: 24px;
-    /* Mais arredondado como o main.css */
-    box-shadow: 0 10px 40px rgba(147, 51, 234, 0.1);
-    /* Sombra roxa suave */
+    background-color: var(--color-surface); 
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    width: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    width: 100%; 
 }
 
 /* ------------------------------------- */
@@ -71,140 +55,44 @@ body {
 
 .main-content {
     flex: 2;
-    padding: 40px;
+    padding: 30px;
     border-right: 1px solid var(--color-border);
 }
 
-.header h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 5px;
-    color: var(--color-text-primary);
-}
-
-.header p {
-    font-size: 1rem;
-    color: var(--color-text-secondary);
-    margin-bottom: 30px;
-}
+.header h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 5px; }
+.header p { font-size: 0.9rem; color: var(--color-text-secondary); margin-bottom: 25px; }
 
 /* Navegação e Botões */
-.time-nav {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
+.time-nav { display: flex; gap: 10px; margin-bottom: 30px; }
+.nav-button { background-color: transparent; border: none; padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; font-weight: 600; color: var(--color-text-secondary); cursor: pointer; transition: background-color 0.2s; }
+.nav-button.active { background-color: var(--color-text-primary); color: var(--color-surface); }
+.add-habit-button { 
+    margin-left: auto; 
+    background-color: #F0F0F0; 
+    color: var(--color-text-primary); 
+    border: none; 
+    padding: 8px 15px; 
+    border-radius: 20px; 
+    font-size: 0.9rem; 
+    font-weight: 600; 
+    cursor: pointer; 
 }
-
-.nav-button {
-    background-color: transparent;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.nav-button:hover {
-    color: var(--color-primary);
-    background-color: var(--color-primary-light);
-}
-
-.nav-button.active {
-    background-color: var(--color-primary);
-    color: var(--color-surface);
-    box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
-}
-
-.add-habit-button {
-    margin-left: auto;
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-    color: var(--color-surface);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
-    transition: transform 0.2s;
-}
-
-.add-habit-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(147, 51, 234, 0.4);
-}
-
-.week-selector {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.date-range {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.date-range h2 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--color-text-primary);
-}
-
-.arrow-button {
-    background: none;
-    border: 1px solid var(--color-border);
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    font-size: 1rem;
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-}
-
-.arrow-button:hover {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-    background-color: var(--color-primary-light);
-}
-
-.icon-button {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    margin-left: 10px;
-    color: var(--color-text-secondary);
-    cursor: pointer;
-}
-
-.achievement-summary {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
-    margin-bottom: 20px;
-    font-weight: 500;
-}
+.week-selector { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.date-range { display: flex; align-items: center; gap: 10px; }
+.date-range h2 { font-size: 1.2rem; font-weight: 600; }
+.arrow-button { background: none; border: 1px solid var(--color-border); border-radius: 50%; width: 28px; height: 28px; font-size: 1rem; color: var(--color-text-secondary); cursor: pointer; }
+.icon-button { background: none; border: none; font-size: 1.2rem; margin-left: 10px; color: var(--color-text-secondary); cursor: pointer; }
+.achievement-summary { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--color-text-secondary); margin-bottom: 20px; }
 
 /* Habit Grid */
 .habit-grid {
     display: grid;
-    grid-template-columns: 1fr repeat(7, 45px) 60px;
-    gap: 12px;
+    grid-template-columns: 1fr repeat(7, 40px) 60px; 
+    gap: 10px;
     text-align: center;
     align-items: center;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
-
 .grid-header {
     font-weight: 600;
     color: var(--color-text-secondary);
@@ -212,64 +100,36 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
-
-.grid-header:first-child {
-    justify-content: flex-start;
-}
-
-#habit-rows {
-    display: contents;
-}
+.grid-header:first-child { justify-content: flex-start; }
+#habit-rows { display: contents; } 
 
 .habit-name {
     font-weight: 500;
     text-align: left;
     white-space: nowrap;
-    color: var(--color-text-primary);
 }
 
 .grid-cell {
-    width: 45px;
-    height: 45px;
-    border-radius: 10px;
-    background-color: #F8F9FA;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    background-color: #F0F0F0;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid var(--color-border);
-    position: relative;
-}
-
-.grid-cell:hover {
-    transform: scale(1.05);
-    border-color: var(--color-primary);
+    opacity: 0.8;
+    transition: all 0.1s;
+    border: 1px solid #333; /* Borda preta para células NÃO marcadas */
 }
 
 .grid-cell.checked {
-    background-color: var(--habit-color, var(--color-primary));
-    border: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: var(--habit-color); /* Preenchimento COMPLETO com a cor do Hábito */
+    border: 1px solid var(--habit-color); /* Borda da cor do Hábito */
+    box-shadow: none; 
     opacity: 1;
 }
-
-/* Efeito de checkmark (opcional, pode ser feito com ::after) */
-.grid-cell.checked::after {
-    content: '✓';
-    color: white;
-    font-size: 1.2rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
-
 .stats-column {
-    font-weight: 700;
-    color: var(--color-primary);
+    font-weight: 600;
+    color: var(--color-text-secondary);
     text-align: right;
     padding-right: 5px;
 }
@@ -280,131 +140,63 @@ body {
 
 .sidebar {
     flex: 1;
-    min-width: 320px;
-    padding: 40px;
-    background-color: #FAFAFA;
-    /* Ligeiramente diferente para contraste */
-    position: relative;
-    border-left: 1px solid var(--color-border);
+    min-width: 300px;
+    padding: 30px;
+    background-color: var(--color-surface);
+    /* ESSENCIAL para o botão flutuante e a janela de chat */
+    position: relative; 
 }
-
-.date-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.date-header p {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--color-text-primary);
-}
-
-.nav-arrows .arrow-small {
-    background: none;
-    border: none;
-    color: var(--color-text-secondary);
-    font-size: 1.1rem;
-    cursor: pointer;
-    margin-left: 8px;
-    transition: color 0.2s;
-}
-
-.nav-arrows .arrow-small:hover {
-    color: var(--color-primary);
-}
-
-.progress-bar-container {
-    padding-bottom: 25px;
-    border-bottom: 1px solid var(--color-border);
-    margin-bottom: 25px;
-}
-
-.progress-bar {
-    height: 8px;
-    background-color: #E9ECEF;
-    border-radius: 4px;
-    margin-bottom: 12px;
-    position: relative;
-    overflow: hidden;
-}
-
+.date-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.date-header p { font-size: 1.1rem; font-weight: 600; }
+.nav-arrows .arrow-small { background: none; border: none; color: var(--color-text-secondary); font-size: 1rem; cursor: pointer; margin-left: 5px; }
+.progress-bar-container { padding-bottom: 20px; border-bottom: 1px solid var(--color-border); margin-bottom: 20px; }
+.progress-bar { height: 5px; background-color: var(--color-border); border-radius: 2.5px; margin-bottom: 10px; position: relative; overflow: hidden; }
 .progress-fill {
     height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
-    border-radius: 4px;
-    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 8px rgba(147, 51, 234, 0.3);
+    width: 0%; 
+    background-color: var(--color-progress-bar);
+    border-radius: 2.5px;
+    transition: width 0.3s ease-out;
 }
-
-.progress-bar-container p {
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
-    text-align: right;
-    font-weight: 500;
-}
+.progress-bar-container p { font-size: 0.85rem; color: var(--color-text-secondary); text-align: right; }
 
 /* Lista de Hábitos Diários e Rolagem */
-.daily-goals-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-height: 500px;
-    overflow-y: auto;
-    padding-right: 10px;
+.daily-goals-list { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    max-height: 450px; /* Altura máxima da lista */
+    overflow-y: auto; /* Habilita a rolagem vertical */
+    padding-right: 5px; /* Espaço para a barra de rolagem */
 }
 
-/* Scrollbar personalizada */
-.daily-goals-list::-webkit-scrollbar {
-    width: 6px;
-}
-
-.daily-goals-list::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.daily-goals-list::-webkit-scrollbar-thumb {
-    background-color: #ddd;
-    border-radius: 3px;
-}
-
-.daily-goals-list::-webkit-scrollbar-thumb:hover {
-    background-color: #bbb;
-}
-
-.placeholder {
-    font-style: italic;
-    color: var(--color-text-secondary);
-    text-align: center;
-    margin-top: 30px;
-    opacity: 0.7;
+.placeholder { 
+    font-style: italic; 
+    color: var(--color-text-secondary); 
+    text-align: center; 
+    margin-top: 20px; 
 }
 
 /* Goal Item e Ações */
 .goal-item {
-    border-radius: 12px;
-    padding: 18px;
+    border-radius: 8px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     position: relative;
     border: 1px solid var(--color-border);
-    transition: all 0.3s ease;
-    background-color: var(--color-surface);
+    transition: all 0.2s;
 }
 
-.goal-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    border-color: var(--color-primary-light);
+.goal-item::after { 
+    content: none; 
 }
 
 /* Menu de Ações (3 pontinhos) */
 .habit-actions-menu {
     position: absolute;
-    top: 15px;
+    top: 10px;
     right: 15px;
 }
 
@@ -412,395 +204,244 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     cursor: pointer;
-    line-height: 1;
+    line-height: 1; 
     color: var(--color-text-secondary);
     padding: 0 5px;
     display: inline-block;
-    transition: color 0.2s;
-}
-
-.menu-dots:hover {
-    color: var(--color-primary);
 }
 
 .dropdown-content {
-    display: none;
+    display: none; 
     position: absolute;
     right: 0;
-    top: 100%;
+    top: 100%; 
     background-color: var(--color-surface);
-    min-width: 140px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    min-width: 130px; 
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 100;
-    border-radius: 8px;
+    border-radius: 6px;
     border: 1px solid var(--color-border);
     overflow: hidden;
-    transform: translate(0px, 5px);
-    animation: fadeInUp 0.2s ease-out;
+    transform: translate(0px, 5px); 
 }
 
 .dropdown-content.open {
-    display: block;
+    display: block; 
 }
 
 .dropdown-content a {
     color: var(--color-text-primary);
-    padding: 12px 16px;
+    padding: 10px 15px;
     text-decoration: none;
     display: block;
     font-size: 0.9rem;
     white-space: nowrap;
-    transition: background 0.2s;
 }
 
 .dropdown-content a:hover {
-    background-color: var(--color-primary-light);
-    color: var(--color-primary);
+    background-color: var(--color-mark-complete);
 }
 
 /* Estilos de Concluído */
-.goal-item h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin: 0;
-    color: var(--habit-color, var(--color-primary));
-}
+.goal-item h3 { font-size: 1rem; font-weight: 600; margin: 0; color: var(--habit-color); }
 
 .goal-item.completed {
-    background: linear-gradient(135deg, var(--habit-color, var(--color-primary)), var(--color-primary-dark));
+    background-color: var(--habit-color); 
     color: var(--color-surface);
-    border: none;
-    box-shadow: 0 4px 15px rgba(147, 51, 234, 0.2);
+    border-color: var(--habit-color);
 }
+.goal-item.completed h3 { color: var(--color-surface); }
+.goal-item.completed .menu-dots { color: var(--color-surface); }
+.goal-item.completed .undo-button { color: rgba(0, 0, 0, 0.7); } 
 
-.goal-item.completed h3 {
-    color: var(--color-surface);
-}
-
-.goal-item.completed .menu-dots {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.goal-item.completed .undo-button {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.goal-buttons {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-
-.status {
-    font-weight: 600;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
+.goal-buttons { display: flex; gap: 10px; align-items: center; }
+.status { font-weight: 600; font-size: 0.8rem; }
 .undo-button {
-    background: none;
-    border: none;
+    background: none; border: none; 
     color: rgba(255, 255, 255, 0.8);
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    text-decoration: underline;
-    padding: 0;
+    font-size: 0.8rem; font-weight: 600; cursor: pointer; text-decoration: underline; padding: 0;
 }
-
 .mark-complete-button {
     background-color: var(--color-mark-complete);
     color: var(--color-text-primary);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    align-self: flex-start;
-    transition: all 0.2s;
+    border: none; padding: 8px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; cursor: pointer; align-self: flex-start;
 }
-
-.mark-complete-button:hover {
-    background-color: #e2e2e2;
-    transform: translateY(-1px);
-}
-
-strong {
-    font-weight: 800;
-}
+strong { font-weight: 800; }
 
 /* ------------------------------------- */
 /* 🤖 CHATBOT ASSISTENTE (BOTÃO)         */
 /* ------------------------------------- */
 
 .chatbot-button {
+    /* Posicionamento ABSOLUTO no canto inferior DIREITO */
     position: absolute;
-    bottom: 30px;
-    right: 40px;
-    left: auto;
+    bottom: 30px; 
+    right: 40px; /* ✅ AJUSTE: Move para a direita (40px de padding) */
+    left: auto; /* Desativa a regra left */
 
-    background: var(--color-primary);
-    color: var(--color-surface);
+    /* Estilo do Botão como Floating Action Button (FAB) */
+    background-color: var(--color-text-primary); 
+    color: var(--color-surface); 
     border: none;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    font-size: 28px;
-    box-shadow: 0 8px 20px rgba(147, 51, 234, 0.4);
+    border-radius: 50%; 
+    width: 50px; 
+    height: 50px;
+    font-size: 24px; 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25); 
     cursor: pointer;
-    display: flex;
+    display: flex; 
     align-items: center;
     justify-content: center;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 100;
+    transition: all 0.2s ease; 
+    z-index: 100; 
 }
 
 .chatbot-button:hover {
-    transform: scale(1.1) translateY(-4px);
-    box-shadow: 0 12px 25px rgba(147, 51, 234, 0.5);
+    transform: scale(1.1) translateY(-2px); 
+    opacity: 0.9;
 }
+
+/* ------------------------------------- */
+/* 💬 JANELA DO CHATBOT (NOVO)           */
+/* ------------------------------------- */
+
+.chatbot-window {
+    /* Posicionamento ABSOLUTO acima do botão */
+    position: absolute;
+    bottom: 90px; /* Acima do botão */
+    right: 40px; /* ✅ AJUSTE: Move para a direita (alinhado com o botão) */
+    left: auto; /* Desativa a regra left */
+    
+    width: 280px;
+    background-color: var(--color-surface); 
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    z-index: 99;
+    
+    /* ESTADO INICIAL: OCULTO (JS vai adicionar .open) */
+    display: none; 
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.chatbot-window.open {
+    /* ESTADO ABERTO */
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.chat-header {
+    background-color: var(--color-text-primary);
+    color: var(--color-surface);
+    padding: 10px 15px;
+    font-weight: 600;
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-body {
+    padding: 15px;
+    font-size: 0.9rem;
+}
+
+.chat-body p {
+    margin-bottom: 10px;
+}
+
+.chat-body ul {
+    list-style: disc;
+    margin-left: 20px;
+    color: var(--color-text-secondary);
+}
+
 
 /* ------------------------------------- */
 /* 🛑 RESPONSIVIDADE (MEDIA QUERIES) 🛑  */
 /* ------------------------------------- */
 
+/* Ajustes para telas médias/Tablets (max-width: 1024px) */
 @media (max-width: 1024px) {
-    body {
-        padding: 16px;
-    }
+    body { padding: 16px; }
 
-    .app-container {
-        max-width: 100%;
-        border-radius: 16px;
-    }
+    .app-container { max-width: 95%; }
 
     .main-content {
-        padding: 25px;
+        padding: 20px;
+        flex: 3; 
     }
 
     .sidebar {
-        padding: 25px;
-        min-width: 280px;
+        padding: 20px;
+        min-width: 250px;
     }
 }
 
+/* Ajustes para Celulares (max-width: 768px) */
 @media (max-width: 768px) {
+    /* Pilha Vertical: Sidebar e Main Content */
     .app-container {
-        flex-direction: column;
-        box-shadow: none;
+        flex-direction: column; 
+        box-shadow: none; 
         border-radius: 0;
-        border: none;
-        background: transparent;
     }
 
     .main-content {
         width: 100%;
-        border-right: none;
-        border-bottom: 1px solid var(--color-border);
-        order: 1;
-        background: var(--color-surface);
-        border-radius: 16px;
-        margin-bottom: 20px;
+        border-right: none; 
+        border-bottom: 1px solid var(--color-border); 
+        order: 1; 
     }
 
     .sidebar {
         width: 100%;
         min-width: 100%;
-        order: 2;
-        background: var(--color-surface);
-        border-radius: 16px;
-        border: none;
+        order: 2; 
+    }
+    
+    /* Rolagem da Sidebar: Ajusta a altura máxima */
+    .daily-goals-list {
+        max-height: 350px; 
     }
 
+    /* Ajuste da Grade de Hábitos */
     .habit-grid {
-        gap: 8px;
-        grid-template-columns: 1fr repeat(7, 35px) 40px;
-        font-size: 0.85rem;
-    }
-
-    .grid-cell {
-        width: 35px;
-        height: 35px;
-        border-radius: 8px;
-    }
-
-    .header h1 {
-        font-size: 1.6rem;
-    }
-
-    .chatbot-button {
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-    }
-}
-
-/* Ajustes para Mobile (Abrangendo até 600px - S20, Surface Duo, etc) */
-@media (max-width: 600px) {
-    body {
-        padding: 12px;
-    }
-
-    .main-content {
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .header {
-        position: relative;
-        z-index: 10;
-        /* Garante que o cabeçalho fique acima se necessário */
-        margin-bottom: 10px;
-    }
-
-    .header h1 {
-        font-size: 1.5rem;
-    }
-
-    .header p {
-        font-size: 0.95rem;
-        margin-bottom: 25px;
-    }
-
-    /* Empilhar botões de navegação para economizar largura */
-    .time-nav {
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-        margin-bottom: 35px;
-        /* Mais espaço entre nav e calendário */
-        position: relative;
-        z-index: 5;
-    }
-
-    .nav-button {
-        padding: 8px 16px;
-        font-size: 0.85rem;
-        flex: 1 1 30%;
-        /* Distribui em colunas se possível */
-        text-align: center;
-    }
-
-    .add-habit-button {
-        width: 100%;
-        text-align: center;
-        margin-top: 10px;
-        /* Espaço extra para o botão de ação */
-        padding: 12px;
-    }
-
-    /* Ajuste fino da grade */
-    .habit-grid {
-        gap: 6px;
-        grid-template-columns: 1fr repeat(7, minmax(28px, 35px)) 40px;
+        gap: 5px; 
+        grid-template-columns: 1fr repeat(7, 30px) 40px; 
         font-size: 0.8rem;
     }
 
     .grid-cell {
-        width: 100%;
-        /* Ocupa o espaço da coluna */
-        aspect-ratio: 1;
-        /* Mantém quadrado */
-        height: auto;
-        border-radius: 8px;
+        width: 30px;
+        height: 30px;
+        border-radius: 4px;
     }
+    
+    .header h1 { font-size: 1.5rem; }
+    .header p { margin-bottom: 15px; }
 
-    .grid-header {
-        font-size: 0.75rem;
+    .time-nav { flex-wrap: wrap; }
+    .nav-button, .add-habit-button { 
+        padding: 6px 12px; 
+        font-size: 0.8rem; 
     }
-
-    /* Evitar sobreposição do botão do chatbot */
+    .date-range h2 { font-size: 1.1rem; }
+    
+    /* Posicionamento do Botão Chatbot em Telas Pequenas */
     .chatbot-button {
-        width: 50px;
-        height: 50px;
-        font-size: 22px;
-        bottom: 20px;
-        right: 20px;
+        bottom: 20px; 
+        right: 50px; 
+        left: auto;
     }
 
+    /* Ajuste da Janela de Chat em Mobile */
     .chatbot-window {
-        width: 90%;
-        right: 5%;
+        right: 30px; 
+        left: auto;
         bottom: 80px;
-    }
-}
-
-/* Ajustes Específicos para Telas Muito Pequenas (iPhone SE, Mini) */
-@media (max-width: 390px) {
-    body {
-        padding: 10px;
-    }
-
-    .main-content {
-        padding: 15px;
-    }
-
-    .header h1 {
-        font-size: 1.4rem;
-    }
-
-    .header p {
-        font-size: 0.9rem;
-        margin-bottom: 20px;
-    }
-
-    /* Empilhar botões de navegação para economizar largura */
-    .time-nav {
-        flex-wrap: wrap;
-        gap: 8px;
-        justify-content: center;
-    }
-
-    .nav-button {
-        padding: 6px 12px;
-        font-size: 0.8rem;
-        flex: 1 1 auto;
-        /* Distribui espaço */
-        text-align: center;
-    }
-
-    .add-habit-button {
-        width: 100%;
-        text-align: center;
-        margin-top: 5px;
-    }
-
-    /* Ajuste fino da grade */
-    .habit-grid {
-        gap: 4px;
-        grid-template-columns: 1fr repeat(7, 28px) 35px;
-        /* Células menores */
-        font-size: 0.75rem;
-    }
-
-    .grid-cell {
-        width: 28px;
-        height: 28px;
-        border-radius: 6px;
-    }
-
-    .grid-header {
-        font-size: 0.7rem;
-    }
-
-    /* Evitar sobreposição do botão do chatbot */
-    .chatbot-button {
-        width: 45px;
-        height: 45px;
-        font-size: 20px;
-        bottom: 15px;
-        right: 15px;
-    }
-
-    .chatbot-window {
-        width: 90%;
-        right: 5%;
-        bottom: 70px;
+        width: 70%; 
     }
 }

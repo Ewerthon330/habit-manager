@@ -70,10 +70,30 @@ async function insertUser(usuario) {
     }
 
     // parse do body — se o servidor não retornar JSON, trate diferente
-    const result = await response.json();
+    let result;
+    try {
+      result = await response.json();
+    } catch (err) {
+      // resposta não é JSON — cria um fallback simples
+      result = { user: { name: usuario.name, email: usuario.email } };
+    }
+
+    // Normalizar: preferir result.user, senão result
+    const createdUser = result.user ?? result ?? { name: usuario.name, email: usuario.email };
+
+    // SALVAR no localStorage para Home ler depois
+    try {
+      localStorage.setItem("currentUser", JSON.stringify(createdUser));
+    } catch (err) {
+      console.warn("Não foi possível salvar currentUser no localStorage:", err);
+    }
+
     console.log("Resposta do servidor:", result);
     alert("Cadastro realizado com sucesso! Bem-vindo(a)!");
     form.reset();
+
+    // opcional: redirecionar para a Home (descomente se quiser)
+    // window.location.href = "/home.html";
   } catch (err) {
     console.error("Falha na requisição:", err);
     alert("Ops! Problema de conexão. Verifique sua internet.");
