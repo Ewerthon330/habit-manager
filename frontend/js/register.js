@@ -83,5 +83,14 @@ async function insertUser(usuario) {
   }
 }
 
+export function nameHome(){
+  const nome = nameInput.value.trim();
+
+  if (!nome) {
+    alert("")
+    return;
+  }
+}
+
 // chamada opcional para carregar lista (apenas para debug)
 buscaUsuario();

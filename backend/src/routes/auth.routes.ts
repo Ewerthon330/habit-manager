@@ -10,3 +10,5 @@ routerAuth.get("/user", userController.getUserAll);
 
 // NOVA ROTA PARA GOOGLE SIGNUP
 routerAuth.post('/google-signup', authController.googleSignup);
+
+

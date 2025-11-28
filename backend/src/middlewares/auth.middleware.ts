@@ -1,6 +1,6 @@
 import { IJwtPayload } from "../interfaces/interfaces";
 import jwtServices from "../services/jwtServices";
-import { type Request, type Response, type NextFunction, response } from "express";
+import { type Request, type Response, type NextFunction } from "express";
 
 const asAuthRequest = (req: Request) => req as Request & { user?: IJwtPayload };
 
@@ -9,8 +9,9 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
     if (!authHeader || !authHeader.startsWith("Bearer")) {
         return res.status(401).json({ message: "Token não fornceido" });
     }
+
     try {
-        const token = authHeader.split("")[1] || "";
+        const token = authHeader.split(" ")[1];
         const decodedPayload = jwtServices.verify(token) as IJwtPayload;
 
         if (!decodedPayload || typeof decodedPayload !== "object") {
