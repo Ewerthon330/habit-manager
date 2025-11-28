@@ -1,0 +1,806 @@
+:root {
+    /* Mapeamento para variáveis globais (global.css deve ser carregado antes) */
+    --color-background: var(--bg-light);
+    --color-surface: var(--white);
+    --color-text-primary: var(--text-dark);
+    --color-text-secondary: var(--text-gray);
+
+    /* Tema Roxo (Baseado no global.css) */
+    --color-primary: var(--primary);
+    /* #9333ea */
+    --color-primary-dark: var(--primary-dark);
+    /* #6b21a8 */
+    --color-primary-light: var(--primary-light);
+    /* rgba(147, 51, 234, 0.1) */
+
+    --color-progress-bar: var(--primary);
+    --color-border: #E0E0E0;
+    --color-undo: #A9A9A9;
+    --color-mark-complete: #F2F2F2;
+
+    /* Gradiente de Fundo (Suave Roxo) */
+    --color-gradient-start: #f3e8ff;
+    /* Roxo muito claro */
+    --color-gradient-mid: #e9d5ff;
+    /* Roxo claro */
+    --color-gradient-end: #d8b4fe;
+    /* Roxo médio */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-main);
+    /* Poppins */
+}
+
+/* ------------------------------------- */
+/* ESTRUTURA GLOBAL E LAYOUT PRINCIPAL   */
+/* ------------------------------------- */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: linear-gradient(135deg, var(--color-gradient-start) 0%, var(--color-gradient-mid) 100%);
+    position: relative;
+    background-attachment: fixed;
+    color: var(--color-text-primary);
+}
+
+.app-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--color-surface);
+    border-radius: 24px;
+    /* Mais arredondado como o main.css */
+    box-shadow: 0 10px 40px rgba(147, 51, 234, 0.1);
+    /* Sombra roxa suave */
+    overflow: hidden;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* ------------------------------------- */
+/* CONTEÚDO PRINCIPAL (ESQUERDA)         */
+/* ------------------------------------- */
+
+.main-content {
+    flex: 2;
+    padding: 40px;
+    border-right: 1px solid var(--color-border);
+}
+
+.header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--color-text-primary);
+}
+
+.header p {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 30px;
+}
+
+/* Navegação e Botões */
+.time-nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.nav-button {
+    background-color: transparent;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+    color: var(--color-primary);
+    background-color: var(--color-primary-light);
+}
+
+.nav-button.active {
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+    box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+}
+
+.add-habit-button {
+    margin-left: auto;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    color: var(--color-surface);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
+    transition: transform 0.2s;
+}
+
+.add-habit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(147, 51, 234, 0.4);
+}
+
+.week-selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.date-range {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.date-range h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.arrow-button {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.arrow-button:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background-color: var(--color-primary-light);
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    margin-left: 10px;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+}
+
+.achievement-summary {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/* Habit Grid */
+.habit-grid {
+    display: grid;
+    grid-template-columns: 1fr repeat(7, 45px) 60px;
+    gap: 12px;
+    text-align: center;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.grid-header {
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.grid-header:first-child {
+    justify-content: flex-start;
+}
+
+#habit-rows {
+    display: contents;
+}
+
+.habit-name {
+    font-weight: 500;
+    text-align: left;
+    white-space: nowrap;
+    color: var(--color-text-primary);
+}
+
+.grid-cell {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    background-color: #F8F9FA;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid var(--color-border);
+    position: relative;
+}
+
+.grid-cell:hover {
+    transform: scale(1.05);
+    border-color: var(--color-primary);
+}
+
+.grid-cell.checked {
+    background-color: var(--habit-color, var(--color-primary));
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+}
+
+/* Efeito de checkmark (opcional, pode ser feito com ::after) */
+.grid-cell.checked::after {
+    content: '✓';
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.stats-column {
+    font-weight: 700;
+    color: var(--color-primary);
+    text-align: right;
+    padding-right: 5px;
+}
+
+/* ------------------------------------- */
+/* SIDEBAR (DIREITA)                     */
+/* ------------------------------------- */
+
+.sidebar {
+    flex: 1;
+    min-width: 320px;
+    padding: 40px;
+    background-color: #FAFAFA;
+    /* Ligeiramente diferente para contraste */
+    position: relative;
+    border-left: 1px solid var(--color-border);
+}
+
+.date-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.date-header p {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.nav-arrows .arrow-small {
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: color 0.2s;
+}
+
+.nav-arrows .arrow-small:hover {
+    color: var(--color-primary);
+}
+
+.progress-bar-container {
+    padding-bottom: 25px;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 25px;
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: #E9ECEF;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+    border-radius: 4px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(147, 51, 234, 0.3);
+}
+
+.progress-bar-container p {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    text-align: right;
+    font-weight: 500;
+}
+
+/* Lista de Hábitos Diários e Rolagem */
+.daily-goals-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Scrollbar personalizada */
+.daily-goals-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.daily-goals-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.daily-goals-list::-webkit-scrollbar-thumb {
+    background-color: #ddd;
+    border-radius: 3px;
+}
+
+.daily-goals-list::-webkit-scrollbar-thumb:hover {
+    background-color: #bbb;
+}
+
+.placeholder {
+    font-style: italic;
+    color: var(--color-text-secondary);
+    text-align: center;
+    margin-top: 30px;
+    opacity: 0.7;
+}
+
+/* Goal Item e Ações */
+.goal-item {
+    border-radius: 12px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    border: 1px solid var(--color-border);
+    transition: all 0.3s ease;
+    background-color: var(--color-surface);
+}
+
+.goal-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border-color: var(--color-primary-light);
+}
+
+/* Menu de Ações (3 pontinhos) */
+.habit-actions-menu {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.menu-dots {
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    line-height: 1;
+    color: var(--color-text-secondary);
+    padding: 0 5px;
+    display: inline-block;
+    transition: color 0.2s;
+}
+
+.menu-dots:hover {
+    color: var(--color-primary);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: var(--color-surface);
+    min-width: 140px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    transform: translate(0px, 5px);
+    animation: fadeInUp 0.2s ease-out;
+}
+
+.dropdown-content.open {
+    display: block;
+}
+
+.dropdown-content a {
+    color: var(--color-text-primary);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+/* Estilos de Concluído */
+.goal-item h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--habit-color, var(--color-primary));
+}
+
+.goal-item.completed {
+    background: linear-gradient(135deg, var(--habit-color, var(--color-primary)), var(--color-primary-dark));
+    color: var(--color-surface);
+    border: none;
+    box-shadow: 0 4px 15px rgba(147, 51, 234, 0.2);
+}
+
+.goal-item.completed h3 {
+    color: var(--color-surface);
+}
+
+.goal-item.completed .menu-dots {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.goal-item.completed .undo-button {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.goal-buttons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.status {
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.undo-button {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+}
+
+.mark-complete-button {
+    background-color: var(--color-mark-complete);
+    color: var(--color-text-primary);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: all 0.2s;
+}
+
+.mark-complete-button:hover {
+    background-color: #e2e2e2;
+    transform: translateY(-1px);
+}
+
+strong {
+    font-weight: 800;
+}
+
+/* ------------------------------------- */
+/* 🤖 CHATBOT ASSISTENTE (BOTÃO)         */
+/* ------------------------------------- */
+
+.chatbot-button {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    left: auto;
+
+    background: var(--color-primary);
+    color: var(--color-surface);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+    box-shadow: 0 8px 20px rgba(147, 51, 234, 0.4);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 100;
+}
+
+.chatbot-button:hover {
+    transform: scale(1.1) translateY(-4px);
+    box-shadow: 0 12px 25px rgba(147, 51, 234, 0.5);
+}
+
+/* ------------------------------------- */
+/* 🛑 RESPONSIVIDADE (MEDIA QUERIES) 🛑  */
+/* ------------------------------------- */
+
+@media (max-width: 1024px) {
+    body {
+        padding: 16px;
+    }
+
+    .app-container {
+        max-width: 100%;
+        border-radius: 16px;
+    }
+
+    .main-content {
+        padding: 25px;
+    }
+
+    .sidebar {
+        padding: 25px;
+        min-width: 280px;
+    }
+}
+
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+        box-shadow: none;
+        border-radius: 0;
+        border: none;
+        background: transparent;
+    }
+
+    .main-content {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+        order: 1;
+        background: var(--color-surface);
+        border-radius: 16px;
+        margin-bottom: 20px;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-width: 100%;
+        order: 2;
+        background: var(--color-surface);
+        border-radius: 16px;
+        border: none;
+    }
+
+    .habit-grid {
+        gap: 8px;
+        grid-template-columns: 1fr repeat(7, 35px) 40px;
+        font-size: 0.85rem;
+    }
+
+    .grid-cell {
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
+    }
+
+    .header h1 {
+        font-size: 1.6rem;
+    }
+
+    .chatbot-button {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+}
+
+/* Ajustes para Mobile (Abrangendo até 600px - S20, Surface Duo, etc) */
+@media (max-width: 600px) {
+    body {
+        padding: 12px;
+    }
+
+    .main-content {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .header {
+        position: relative;
+        z-index: 10;
+        /* Garante que o cabeçalho fique acima se necessário */
+        margin-bottom: 10px;
+    }
+
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .header p {
+        font-size: 0.95rem;
+        margin-bottom: 25px;
+    }
+
+    /* Empilhar botões de navegação para economizar largura */
+    .time-nav {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin-bottom: 35px;
+        /* Mais espaço entre nav e calendário */
+        position: relative;
+        z-index: 5;
+    }
+
+    .nav-button {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        flex: 1 1 30%;
+        /* Distribui em colunas se possível */
+        text-align: center;
+    }
+
+    .add-habit-button {
+        width: 100%;
+        text-align: center;
+        margin-top: 10px;
+        /* Espaço extra para o botão de ação */
+        padding: 12px;
+    }
+
+    /* Ajuste fino da grade */
+    .habit-grid {
+        gap: 6px;
+        grid-template-columns: 1fr repeat(7, minmax(28px, 35px)) 40px;
+        font-size: 0.8rem;
+    }
+
+    .grid-cell {
+        width: 100%;
+        /* Ocupa o espaço da coluna */
+        aspect-ratio: 1;
+        /* Mantém quadrado */
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .grid-header {
+        font-size: 0.75rem;
+    }
+
+    /* Evitar sobreposição do botão do chatbot */
+    .chatbot-button {
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .chatbot-window {
+        width: 90%;
+        right: 5%;
+        bottom: 80px;
+    }
+}
+
+/* Ajustes Específicos para Telas Muito Pequenas (iPhone SE, Mini) */
+@media (max-width: 390px) {
+    body {
+        padding: 10px;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    .header h1 {
+        font-size: 1.4rem;
+    }
+
+    .header p {
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+    }
+
+    /* Empilhar botões de navegação para economizar largura */
+    .time-nav {
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .nav-button {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        flex: 1 1 auto;
+        /* Distribui espaço */
+        text-align: center;
+    }
+
+    .add-habit-button {
+        width: 100%;
+        text-align: center;
+        margin-top: 5px;
+    }
+
+    /* Ajuste fino da grade */
+    .habit-grid {
+        gap: 4px;
+        grid-template-columns: 1fr repeat(7, 28px) 35px;
+        /* Células menores */
+        font-size: 0.75rem;
+    }
+
+    .grid-cell {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+    }
+
+    .grid-header {
+        font-size: 0.7rem;
+    }
+
+    /* Evitar sobreposição do botão do chatbot */
+    .chatbot-button {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+        bottom: 15px;
+        right: 15px;
+    }
+
+    .chatbot-window {
+        width: 90%;
+        right: 5%;
+        bottom: 70px;
+    }
+}
