@@ -1,11 +1,11 @@
 import { auth, provider } from './firebase.js';
 import { signInWithPopup } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
-const API_URL = 'http://localhost:3001/api/auth/google-signup';
+const API_URL = 'http://localhost:3000/api/auth/google-signup';
 
 export async function handleGoogleAuth() {
     try {
-        console.log("🎯 Iniciando autenticação Google...");
+        console.log("[GOOGLE AUTH] Iniciando autenticação...");
 
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
@@ -13,7 +13,7 @@ export async function handleGoogleAuth() {
         // Obter o ID Token do Firebase
         const idToken = await user.getIdToken();
 
-        console.log("✅ Usuário autenticado no Firebase:", user.email);
+        console.log("[GOOGLE AUTH] Usuário autenticado no Firebase:", user.email);
 
         // Enviar ID Token para o backend verificar
         const response = await fetch(API_URL, {
@@ -27,7 +27,7 @@ export async function handleGoogleAuth() {
         const data = await response.json();
 
         if (response.ok && data.success) {
-            console.log("✅ Backend verificou e aprovou o login");
+            console.log("[GOOGLE AUTH] Login verificado com sucesso.");
 
             // Salvar sessão
             sessionStorage.setItem('authToken', data.token);

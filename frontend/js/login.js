@@ -1,4 +1,4 @@
-// login.js (ajustado — mantém sua estrutura)
+// login.js
 const API_URL = "http://localhost:3000/api/auth/login";
 
 const emailInput = document.getElementById("loginEmail");
@@ -15,9 +15,9 @@ function setLoading(isLoading) {
 
 // checagem rápida: evita erro se elementos não forem encontrados
 if (!formLogin) {
-  console.error("Form de login não encontrado (id='sign'). O script não pode ser executado.");
+  console.error("[LOGIN] Formulário de login não encontrado.");
 } else if (!emailInput || !passwordInput) {
-  console.error("Inputs de email/senha não encontrados (ids: 'loginEmail' e 'loginPassword').");
+  console.error("[LOGIN] Campos de email ou senha não identificados.");
 } else {
   formLogin.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -28,19 +28,11 @@ if (!formLogin) {
       password: passwordInput.value.trim(),
     };
 
-    console.log("FRONT: enviando credentials:", credentials);
-
     if (!credentials.email || !credentials.password) {
-      alert("Preencha email e senha.");
+      alert("Por favor, preencha todos os campos.");
       setLoading(false);
       return;
     }
-
-    // CORREÇÃO: usar as variáveis corretas (emailInput.value / passwordInput.value)
-    console.log("ENVIANDO PARA O BACK:", {
-      email: emailInput.value.trim(),
-      password: passwordInput.value ? "*****" : "",
-    });
 
     try {
       const response = await fetch(API_URL, {
@@ -54,16 +46,11 @@ if (!formLogin) {
       try {
         data = await response.json();
       } catch (parseErr) {
-        // resposta não JSON — manter data vazio e logar para debug
-        console.warn("Resposta do servidor não é JSON:", parseErr);
+        console.warn("[LOGIN] Resposta do servidor não é JSON válido:", parseErr);
       }
 
-      // CORREÇÃO: agora que 'data' existe, podemos logá-lo
-      console.log("RESPOSTA DO BACK:", data);
-      console.log("Resposta do login:", response.status, data);
-
       if (!response.ok) {
-        alert((data && data.message) || "Ops! E-mail ou senha incorretos. Tente novamente.");
+        alert((data && data.message) || "Credenciais inválidas. Verifique e tente novamente.");
         setLoading(false);
         return;
       }

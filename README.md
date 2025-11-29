@@ -13,14 +13,18 @@ Projeto desenvolvido para auxiliar usuários a gerenciar e acompanhar seus hábi
   - Remoção de hábitos.
 - **Autenticação Segura**:
   - Login e Cadastro com E-mail e Senha.
+  - **Validação de Cadastro**: Verificação de e-mail duplicado e senha mínima (6 caracteres).
   - **Login com Google** integrado.
+  - **Logout Seguro**: Botão de sair com confirmação.
 - **Chatbot Inteligente (HabiBot)**:
   - Assistente virtual focado em saúde e rotina.
+  - Interface em **Popup** (não intrusiva).
   - Respostas geradas via **Google Gemini API**.
   - Personalidade motivadora e prática.
 - **Interface Responsiva**:
   - Design moderno e fluido.
   - Otimizado para dispositivos móveis (incluindo telas pequenas como iPhone SE e Galaxy S20).
+  - Ajustes de padding e layout para evitar cortes em telas menores.
 
 ---
 
@@ -76,11 +80,13 @@ habit-manager/
     ```
 3.  Crie um arquivo `.env` na raiz do `backend` com as seguintes chaves (baseado no `.env.example`):
     ```env
-    PORT=3001
+    PORT=3000
     FIREBASE_PROJECT_ID=seu-project-id
     FIREBASE_CLIENT_EMAIL=seu-client-email
     FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n..."
     GEMINI_API_KEY=sua-chave-gemini
+    JWTSECRET=sua-chave-secreta-jwt
+    SALTROUNDS=10
     ```
 4.  Inicie o servidor:
     ```bash
@@ -89,7 +95,7 @@ habit-manager/
 
 ### 2. Executando o Frontend
 1.  Basta abrir o arquivo `frontend/index.html` (ou `frontend/pages/login.html`) no seu navegador.
-2.  Certifique-se de que o backend está rodando na porta `3001`.
+2.  Certifique-se de que o backend está rodando na porta `3000`.
 
 ---
 

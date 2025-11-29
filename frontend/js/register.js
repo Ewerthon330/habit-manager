@@ -1,5 +1,5 @@
 // register.js
-const API_URL = "http://localhost:3000/api/user"; // ajuste se sua rota for diferente
+const API_URL = "http://localhost:3000/api/user";
 
 // pegar elementos POR ID (devem existir no HTML)
 const nameInput = document.getElementById("cadName");
@@ -14,14 +14,14 @@ async function buscaUsuario() {
   try {
     const response = await fetch(API_URL, { method: "GET", headers: { "Content-Type": "application/json" } });
     if (!response.ok) {
-      console.warn("buscaUsuario: resposta não OK", response.status);
+      console.warn("[REGISTER] Erro ao buscar usuários:", response.status);
       return;
     }
     const data = await response.json();
-    console.log("Usuários encontrados:", data);
+    console.log("[REGISTER] Lista de usuários carregada.");
     return data;
   } catch (err) {
-    console.error("Erro ao buscar usuários:", err);
+    console.error("[REGISTER] Falha na comunicação com o servidor:", err);
   }
 }
 
@@ -35,6 +35,11 @@ form.addEventListener("submit", function (e) {
 
   if (!nome || !email || !pass) {
     alert("Por favor, preencha todos os campos para continuar.");
+    return;
+  }
+
+  if (pass.length < 6) {
+    alert("A senha deve ter no mínimo 6 caracteres.");
     return;
   }
 
@@ -63,9 +68,15 @@ async function insertUser(usuario) {
     const response = await fetch(API_URL, requestOptions);
 
     if (!response.ok) {
-      const texto = await response.text();
-      console.error("Erro do servidor:", response.status, texto);
-      alert("Ops! Não foi possível realizar o cadastro. Tente novamente.");
+      let errorMessage = "Ops! Não foi possível realizar o cadastro. Tente novamente.";
+      try {
+        const errorData = await response.json();
+        if (errorData.message) errorMessage = errorData.message;
+      } catch (e) {
+        const texto = await response.text();
+        console.error("Erro do servidor:", response.status, texto);
+      }
+      alert(errorMessage);
       return;
     }
 
@@ -103,7 +114,7 @@ async function insertUser(usuario) {
   }
 }
 
-export function nameHome(){
+export function nameHome() {
   const nome = nameInput.value.trim();
 
   if (!nome) {

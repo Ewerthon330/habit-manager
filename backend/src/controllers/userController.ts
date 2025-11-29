@@ -14,10 +14,16 @@ const createNewUser = async (req: Request, res: Response) => {
     const { name, email, password, role } = req.body;
 
     if (!name || !email || !password) {
-      return res.status(400).json({ message: "Nome, email e senha são obrigatórios." });
+      return res.status(400).json({ message: "Por favor, forneça nome, email e senha." });
     }
 
     const normalizedEmail = String(email).trim().toLowerCase();
+
+    const existingUser = await userModels.findByEmail(normalizedEmail);
+    if (existingUser) {
+      return res.status(409).json({ message: "Este endereço de email já está em uso." });
+    }
+
     const hashedPassword = await bcrypt.hash(String(password), saltRounds);
 
     const dados = {
@@ -30,12 +36,12 @@ const createNewUser = async (req: Request, res: Response) => {
     const created = await userModels.createNewUser(dados);
 
     return res.status(201).json({
-      message: "Usuário criado com sucesso!",
+      message: "Cadastro realizado com sucesso!",
       user: { id: created.id ?? created._id, name: created.name, email: created.email, role: created.role },
     });
   } catch (error) {
-    console.error("Erro ao criar usuário:", error);
-    return res.status(500).json({ message: "Erro interno no servidor." });
+    console.error("[USER CONTROLLER] Erro ao criar usuário:", error);
+    return res.status(500).json({ message: "Ocorreu um erro interno no servidor. Tente novamente mais tarde." });
   }
 };
 

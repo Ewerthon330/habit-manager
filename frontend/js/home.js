@@ -368,3 +368,16 @@ function populateUserName() {
 
     span.textContent = name;
 }
+
+// --- LOGOUT ---
+const logoutBtn = document.getElementById('logout-btn');
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+        if (confirm("Tem certeza que deseja sair?")) {
+            sessionStorage.clear();
+            localStorage.removeItem('user');
+            localStorage.removeItem('currentUser'); // Limpar legado se houver
+            window.location.href = '../index.html';
+        }
+    });
+}

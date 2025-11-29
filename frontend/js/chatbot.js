@@ -1,9 +1,14 @@
+// chatbot.js
+const CHAT_API_URL = "http://localhost:3000/api/chat";
+
 const chatInput = document.querySelector("#chat-input");
 const sendButton = document.querySelector("#send-btn");
 const chatContainer = document.querySelector(".chat-container");
 const chatbotPopup = document.querySelector(".chatbot-popup");
 const closeBtn = document.querySelector(".close-btn");
 const chatbotToggler = document.querySelector("#chatbot-toggler");
+const themeButton = document.querySelector("#theme-btn");
+const deleteButton = document.querySelector("#delete-btn");
 
 let userText = null;
 // API Key removida por segurança (agora no backend)
@@ -27,7 +32,7 @@ const createElement = (html, className) => {
 
 const getChatResponse = async (incomingChatDiv) => {
     // Agora aponta para o nosso backend, sem expor a chave API
-    const API_URL = "http://localhost:3001/api/chat";
+    const API_URL = "http://localhost:3000/api/chat";
     const pElement = document.createElement("p");
 
     const requestOptions = {
@@ -52,9 +57,9 @@ const getChatResponse = async (incomingChatDiv) => {
         addToHistory("model", apiResponseText);
 
     } catch (error) {
-        console.log(error);
+        console.error("[CHATBOT] Erro:", error);
         pElement.classList.add("error");
-        pElement.textContent = "Ops! Tive um problema. Verifique sua chave de API ou tente novamente.";
+        pElement.textContent = "Desculpe, estou enfrentando dificuldades técnicas no momento. Por favor, tente novamente mais tarde.";
     }
 
     incomingChatDiv.querySelector(".typing-animation").remove();
@@ -64,14 +69,14 @@ const getChatResponse = async (incomingChatDiv) => {
 
 const showTypingAnimation = () => {
     const html = `<div class="chat-content">
-                <div class="chat-details">
-                    <div class="bot-avatar-small">🤖</div>
-                    <div class="typing-animation">
-                        <div class="typing-dot"></div>
-                        <div class="typing-dot"></div>
-                        <div class="typing-dot"></div>
-                    </div>
-                </div>
+    <div class="chat-details">
+        <div class="bot-avatar-small">🤖</div>
+        <div class="typing-animation">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+        </div>
+    </div>
             </div>`;
     const incomingChatDiv = createElement(html, "incoming");
     chatContainer.appendChild(incomingChatDiv);
@@ -87,9 +92,9 @@ const handleOutgoingChat = () => {
     chatInput.style.height = "auto";
 
     const html = `<div class="chat-content">
-                <div class="chat-details">
-                    <p>${userText}</p>
-                </div>
+    <div class="chat-details">
+        <p>${userText}</p>
+    </div>
             </div>`;
 
     const outgoingChatDiv = createElement(html, "outgoing");
