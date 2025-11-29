@@ -21,9 +21,12 @@
         <li><a href="#beneficios">Benefícios</a></li>
         <li><a href="#chatbot">IA Assistente</a></li>
       </ul>
-      <div class="auth-buttons">
+      <div class="auth-buttons" id="authButtons">
         <a href="pages/login.html" class="btn-outline">Entrar</a>
         <a href="pages/register.html" class="btn-fill">Cadastrar</a>
+      </div>
+      <div class="auth-buttons" id="homeButton" style="display: none;">
+        <a href="pages/home.html" class="btn-fill">Ir para Home</a>
       </div>
       <div class="menu-toggle">☰</div>
     </nav>
@@ -37,7 +40,8 @@
         <p>Transforme sua rotina com o Health Time. Gerencie seus hábitos diários e receba dicas personalizadas do nosso
           assistente virtual.</p>
         <div class="hero-btns">
-          <a href="pages/register.html" class="btn-lg">Começar Agora Grátis</a>
+          <a href="pages/register.html" class="btn-lg" id="ctaRegister">Começar Agora Grátis</a>
+          <a href="pages/home.html" class="btn-lg" id="ctaHome" style="display: none;">Ir para meu Painel</a>
           <a href="#beneficios" class="link-saiba-mais">Saiba mais ↓</a>
         </div>
       </div>
@@ -106,6 +110,24 @@
     </div>
   </footer>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = sessionStorage.getItem('user') || localStorage.getItem('user');
+      if (user) {
+        // Navbar buttons
+        const authButtons = document.getElementById('authButtons');
+        const homeButton = document.getElementById('homeButton');
+        if (authButtons) authButtons.style.display = 'none';
+        if (homeButton) homeButton.style.display = 'flex';
+
+        // Hero CTA button
+        const ctaRegister = document.getElementById('ctaRegister');
+        const ctaHome = document.getElementById('ctaHome');
+        if (ctaRegister) ctaRegister.style.display = 'none';
+        if (ctaHome) ctaHome.style.display = 'inline-flex';
+      }
+    });
+  </script>
 </body>
 
 </html>

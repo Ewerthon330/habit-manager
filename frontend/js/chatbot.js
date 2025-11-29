@@ -1,6 +1,9 @@
 const chatInput = document.querySelector("#chat-input");
 const sendButton = document.querySelector("#send-btn");
 const chatContainer = document.querySelector(".chat-container");
+const chatbotPopup = document.querySelector(".chatbot-popup");
+const closeBtn = document.querySelector(".close-btn");
+const chatbotToggler = document.querySelector("#chatbot-toggler");
 
 let userText = null;
 // API Key removida por segurança (agora no backend)
@@ -106,3 +109,16 @@ chatInput.addEventListener("keydown", (e) => {
 });
 
 sendButton.addEventListener("click", handleOutgoingChat);
+
+// Popup Logic
+if (chatbotToggler) {
+    chatbotToggler.addEventListener("click", () => {
+        chatbotPopup.classList.toggle("active");
+    });
+}
+
+if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+        chatbotPopup.classList.remove("active");
+    });
+}

@@ -20,7 +20,7 @@ function saveState() {
 function loadState() {
     const habitsJson = localStorage.getItem('habits');
     const recordsJson = localStorage.getItem('records');
-    
+
     if (habitsJson) {
         try { habits = JSON.parse(habitsJson); } catch (e) { console.warn("habits parse falhou", e); }
     }
@@ -107,7 +107,7 @@ function editHabit(habitId) {
     if (!habitToEdit) return;
 
     const newName = prompt(`Digite o novo nome para "${habitToEdit.name}":`, habitToEdit.name);
-    
+
     if (newName && newName.trim() !== habitToEdit.name) {
         habitToEdit.name = newName.trim();
         renderApp();
@@ -150,10 +150,10 @@ function renderHabitGrid() {
         if (rangeEl) rangeEl.textContent = formatWeekRange(currentWeekStart);
         return;
     }
-    
+
     const currentWeekEnd = new Date(currentWeekStart);
     currentWeekEnd.setDate(currentWeekStart.getDate() + 6);
-    
+
     tempContainer.style.display = 'contents';
 
     habits.forEach(habit => {
@@ -163,36 +163,36 @@ function renderHabitGrid() {
         tempContainer.appendChild(nameDiv);
 
         let completedCount = 0;
-        
+
         for (let i = 0; i < 7; i++) {
             const date = new Date(currentWeekStart);
             date.setDate(currentWeekStart.getDate() + i);
             const dateKey = formatDateKey(date);
-            
+
             const isChecked = !!(records[habit.id] && records[habit.id][dateKey]);
-            
+
             if (isChecked) {
                 completedCount++;
             }
-            
+
             const cell = document.createElement('div');
             cell.className = `grid-cell ${isChecked ? 'checked' : ''}`;
             if (isChecked) {
                 cell.style.setProperty('--habit-color', habit.color);
             }
-            
+
             // atenção: onclick usa toggleCompletion definida globalmente
             cell.onclick = () => toggleCompletion(habit.id, dateKey);
-            
+
             tempContainer.appendChild(cell);
         }
-        
+
         const statsDiv = document.createElement('div');
         statsDiv.className = 'stats-column';
         statsDiv.textContent = `${completedCount}/7`;
         tempContainer.appendChild(statsDiv);
     });
-    
+
     container.innerHTML = tempContainer.innerHTML;
 
     const rangeEl = document.getElementById('current-week-range');
@@ -205,10 +205,10 @@ function renderDailyGoals() {
     const container = document.getElementById('daily-goals-list');
     if (!container) return;
     container.innerHTML = '';
-    
+
     const todayKey = formatDateKey(today);
     let completedGoals = 0;
-    
+
     if (habits.length === 0) {
         container.innerHTML = '<p class="placeholder">Nenhum hábito para hoje. Adicione um!</p>';
         updateDailyProgress(0);
@@ -220,19 +220,19 @@ function renderDailyGoals() {
         if (isCompleted) {
             completedGoals++;
         }
-        
+
         const goalItem = document.createElement('div');
         goalItem.className = `goal-item ${isCompleted ? 'completed' : 'pending'}`;
         goalItem.style.setProperty('--habit-color', habit.color);
-        
+
         goalItem.innerHTML = `
             <h3>${escapeHtml(habit.name)}</h3>
-            ${isCompleted ? 
+            ${isCompleted ?
                 `<div class="goal-buttons">
                     <span class="status">✅ Concluído</span>
                     <button class="undo-button" onclick="setCompletion('${habit.id}', '${todayKey}', false)">Desfazer</button>
-                </div>` 
-                : 
+                </div>`
+                :
                 `<button class="mark-complete-button" onclick="setCompletion('${habit.id}', '${todayKey}', true)">Marcar Completo</button>`
             }
             
@@ -246,14 +246,14 @@ function renderDailyGoals() {
         `;
         container.appendChild(goalItem);
     });
-    
+
     updateDailyProgress(completedGoals);
 }
 
 function updateDailyProgress(completedCount) {
     const totalHabits = habits.length;
     const percent = totalHabits > 0 ? Math.round((completedCount / totalHabits) * 100) : 0;
-    
+
     const fillEl = document.getElementById('daily-progress-fill');
     const textEl = document.getElementById('daily-progress-text');
     const todayDateEl = document.getElementById('today-date');
@@ -270,17 +270,17 @@ function updateDailyProgress(completedCount) {
 
 function checkAndAddNewHabits() {
     const pendingHabitsJson = localStorage.getItem('pendingHabits');
-    
+
     if (pendingHabitsJson) {
         try {
             const pendingHabits = JSON.parse(pendingHabitsJson);
-            
+
             pendingHabits.forEach(data => {
                 if (data && data.name) addHabit(data.name, data.color || '#FFB347');
             });
-            
+
             localStorage.removeItem('pendingHabits');
-            
+
         } catch (e) {
             console.error("Erro ao carregar hábitos pendentes:", e);
         }
@@ -291,11 +291,11 @@ function checkAndAddNewHabits() {
 // Pequena função para evitar injeção ao inserir nomes em innerHTML
 function escapeHtml(unsafe) {
     return String(unsafe)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 // --- INICIALIZAÇÃO E RENDERIZAÇÃO PRINCIPAL ---
@@ -340,7 +340,7 @@ function safeAttachWeekNavHandlers() {
 
 // --- PRENCHIMENTO DO NOME DO USUÁRIO NO HEADER ---
 function readStoredUser() {
-    const raw = localStorage.getItem("currentUser") ?? sessionStorage.getItem("currentUser");
+    const raw = sessionStorage.getItem("user") ?? localStorage.getItem("user");
     if (!raw) return null;
 
     try {
