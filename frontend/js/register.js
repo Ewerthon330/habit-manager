@@ -1,5 +1,7 @@
 // register.js
 const API_URL = "http://localhost:3000/api/user";
+// caminho da página de login — ajuste se necessário
+const LOGIN_PAGE = "login.html"; // ex: "../pages/login.html" ou "/login.html"
 
 // pegar elementos POR ID (devem existir no HTML)
 const nameInput = document.getElementById("cadName");
@@ -103,12 +105,20 @@ async function insertUser(usuario) {
     alert("Cadastro realizado com sucesso! Bem-vindo(a)!");
     form.reset();
 
-    // opcional: redirecionar para a Home (descomente se quiser)
-    // window.location.href = "/home.html";
+    // === AQUI: reativa botão e redireciona para a página de login ===
+    // Reativamos o botão antes de navegar (opcional, navegacao normalmente interrompe execução)
+    btn.disabled = false;
+    btn.textContent = "Cadastrar";
+
+    // Redireciona imediatamente para a página de login configurada
+    window.location.href = LOGIN_PAGE;
+
   } catch (err) {
     console.error("Falha na requisição:", err);
     alert("Ops! Problema de conexão. Verifique sua internet.");
   } finally {
+    // garantia de fallback: se por algum motivo não redirecionou, reativa o botão
+    if (!btn) return;
     btn.disabled = false;
     btn.textContent = "Cadastrar";
   }
