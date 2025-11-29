@@ -1,44 +1,38 @@
-# =====================================================
-# Node / TypeScript / Express gitignore
-# =====================================================
-
-# Node modules
-node_modules/
-
-# Build
-dist/
-build/
-
-# Logs
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Dependencies
+node_modules
 
 # Environment variables
 .env
 .env.local
-.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Firebase admin keys
-firebase-service-account.json
-serviceAccountKey.json
-*.serviceAccount.json
+# Build outputs
+dist
+build
+out
 
-# OS-specific files
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs
+*.log
+
+# OS generated files
 .DS_Store
 Thumbs.db
 
-# IDE configs
-.vscode/
-.idea/
+
+# IDEs
+.vscode
+.idea
 *.swp
 *.swo
 
-# TypeScript cache
-*.tsbuildinfo
-*.json
-# Temporary files
-tmp/
-temp/
+# Firebase
+firebase.json
+firebase_config.json
+src/config/*.json
+
